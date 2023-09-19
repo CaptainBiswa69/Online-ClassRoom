@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "254781621727",
+    "project_id": "online-classroom-app-239e9",
+    "storage_bucket": "online-classroom-app-239e9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:254781621727:android:52f5f00c73a06ccc25706a",
+        "android_client_info": {
+          "package_name": "com.example.online_classroom_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "254781621727-ompnu8m39ddhenajf28t7lt5727l2h27.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7CjFDOBeAXk4miOXbnBPPQTqLKIJuM2Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "254781621727-ompnu8m39ddhenajf28t7lt5727l2h27.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "254781621727-uee4616db1n1b3ksoovssuth2pcp4hq6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.googleclassroomClone"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

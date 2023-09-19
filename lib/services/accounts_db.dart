@@ -1,0 +1,41 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:online_classroom_app/data/custom_user.dart';
+
+class AccountsDB {
+  // object to get instance of Accounts table
+  CollectionReference accountReference =
+      FirebaseFirestore.instance.collection("Accounts");
+
+  // uid used to reference the auth user
+  CustomUser? user;
+
+  AccountsDB({this.user});
+
+  // function to update in database
+  Future<void> updateAccounts(String fname, String lname, String type) async {
+    return await accountReference.doc(user!.uid).set({
+      'uid': user!.uid,
+      'firstname': fname,
+      'lastname': lname,
+      'type': type,
+      'email': user!.email,
+    });
+  }
+
+  // function to make list of accounts from DB
+  Future<List?> createAccountDataList() async {
+    var listOfAccount = [];
+
+    await accountReference.get().then((ss) {
+      if (ss.docs.isNotEmpty) {
+        listOfAccount = ss.docs.toList();
+      } else {
+        debugPrint("got no accounts");
+        return [];
+      }
+    });
+
+    return listOfAccount;
+  }
+}
