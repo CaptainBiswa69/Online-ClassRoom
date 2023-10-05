@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:online_classroom_app/data/classrooms.dart';
+import 'package:online_classroom_app/screens/export_attendance.dart';
 import 'package:online_classroom_app/screens/student_classroom/people_tab.dart';
 
 import '../student_classroom/classwork_tab.dart';
 import '../student_classroom/stream_tab.dart';
 
 class ClassRoomPage extends StatefulWidget {
-  ClassRooms classRoom;
-  Color uiColor;
+  final ClassRooms classRoom;
+  final Color uiColor;
 
-  ClassRoomPage({required this.classRoom, required this.uiColor});
+  const ClassRoomPage(
+      {super.key, required this.classRoom, required this.uiColor});
 
   @override
-  _ClassRoomPageState createState() => _ClassRoomPageState();
+  State<ClassRoomPage> createState() => _ClassRoomPageState();
 }
 
 class _ClassRoomPageState extends State<ClassRoomPage> {
@@ -55,6 +57,20 @@ class _ClassRoomPageState extends State<ClassRoomPage> {
         ],
       ),
       body: tabs[_selectedIndex],
+      floatingActionButton: FloatingActionButton(
+        heroTag: "Attendance",
+        onPressed: () {
+          Navigator.of(context)
+              .push(MaterialPageRoute(
+                builder: (context) => ExportAttendance(
+                  classRoom: widget.classRoom,
+                ),
+              ))
+              .then((_) => setState(() {}));
+        },
+        backgroundColor: widget.uiColor,
+        child: const Icon(Icons.person_off, color: Colors.white, size: 32),
+      ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(

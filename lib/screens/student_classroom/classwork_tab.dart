@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:online_classroom_app/data/announcements.dart';
-// import 'package:online_classroom_app/screens/student_classroom/announcement_page.dart';
-import 'package:online_classroom_app/screens/teacher_classroom/announcement_page.dart';
+import 'package:online_classroom_app/screens/student_classroom/announcement_page.dart';
 
 class ClassWork extends StatefulWidget {
   final String className;

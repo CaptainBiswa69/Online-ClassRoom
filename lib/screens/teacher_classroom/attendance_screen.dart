@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:online_classroom_app/data/accounts.dart';
 import 'package:online_classroom_app/data/classrooms.dart';
+import 'package:online_classroom_app/screens/export_attendance.dart';
 import 'package:online_classroom_app/screens/teacher_classroom/student_work_page.dart';
 import 'package:online_classroom_app/widgets/profile_tile.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -40,6 +41,20 @@ class _TeacherAttendanceState extends State<TeacherAttendance> {
           style: TextStyle(
               color: Colors.white, fontFamily: "Roboto", fontSize: 22),
         ),
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            ExportAttendance(classRoom: widget.classRoom)));
+              },
+              icon: const Icon(
+                Icons.arrow_circle_up_sharp,
+                size: 28,
+              ))
+        ],
       ),
       backgroundColor: Colors.white,
       body: StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
@@ -51,15 +66,9 @@ class _TeacherAttendanceState extends State<TeacherAttendance> {
               .snapshots(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              List<String> classDates = [];
-              FirebaseFirestore.instance
-                  .collection("Classes")
-                  .doc(widget.classRoom.className)
-                  .collection("Attendance")
-                  .get()
-                  .then((value) {
-                classDates.addAll(value.docs.map((e) => e.id).toList());
-              });
+              List<dynamic> students = snapshot.data!.data() == null
+                  ? []
+                  : snapshot.data!.data()!["presentStudents"] ?? [];
               return Stack(
                 alignment: Alignment.bottomCenter,
                 children: [
@@ -149,18 +158,21 @@ class _TeacherAttendanceState extends State<TeacherAttendance> {
                                 const SizedBox(
                                   height: 20,
                                 ),
+                                ListTile(
+                                  title: Text(
+                                    "Total Students = ${widget.classRoom.students.length}",
+                                    style: const TextStyle(fontSize: 18),
+                                  ),
+                                  trailing: Text(
+                                    "Total Present = ${students.length}",
+                                    style: const TextStyle(fontSize: 18),
+                                  ),
+                                ),
                                 ListView.builder(
                                     shrinkWrap: true,
                                     primary: false,
                                     itemCount: widget.classRoom.students.length,
                                     itemBuilder: (context, int index) {
-                                      List<dynamic> students = snapshot.data!
-                                                  .data() ==
-                                              null
-                                          ? []
-                                          : snapshot.data!
-                                                  .data()!["presentStudents"] ??
-                                              [];
                                       if (students.isEmpty &&
                                           snapshot.data!.data() != null) {
                                         FirebaseFirestore.instance

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:online_classroom_app/data/accounts.dart';
 import 'package:online_classroom_app/data/announcements.dart';
 import 'package:online_classroom_app/data/attachments.dart';
@@ -42,7 +43,7 @@ Future<bool> getsubmissionList() async {
             data["uid"], data["classroom"], data["assignment"])));
   }
 
-  print("\t\t\t\tGot submissions list");
+  debugPrint("\t\t\t\tGot submissions list");
   // print(submissionList);
   return true;
 }
